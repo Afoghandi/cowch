@@ -1,3 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://afo123:afo123@cowch.5th6c.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://afo123:afo123@cowch.5th6c.mongodb.net/test?retryWrites=true&w=majority",
+
+    "jwtSecret": "mysecrettoken"
 }
