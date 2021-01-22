@@ -8,6 +8,10 @@ const Profileschema = new mongoose.Schema({
 
     profileName: {
         type: String,
+        default: 'Viewer',
+    },
+    userName: {
+        type: String,
         required: true,
     },
     photoUrl: {
