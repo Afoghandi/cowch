@@ -1,12 +1,18 @@
-import React, { Fragment } from 'react';
-import { logo } from './images/icons/logo.svg';
+import React from 'react';
 
-const App = () => {
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Home } from './pages';
+
+function App() {
 	return (
-		<Fragment>
-			<h1> Couch TV </h1> <img src='/images/logo.png' alt='cowch logo' />
-		</Fragment>
+		<>
+			<Router>
+				<Switch>
+					<Home />
+				</Switch>
+			</Router>{' '}
+		</>
 	);
-};
+}
 
 export default App;
