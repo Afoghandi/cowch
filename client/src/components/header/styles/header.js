@@ -1,11 +1,13 @@
 import styled from 'styled-components/macro';
 import { Link as ReactRouterLink } from 'react-router-dom';
 
-export const Background = styled.div`
+export const Background = styled.div `
 	display: flex;
 	flex-direction: column;
 	background: url(${({ src }) =>
-			src ? `../images/misc/${src}.jpg ` : '../images/misc/home-bg.jpg'})
+			src
+				? `.. / images / misc / $ { src }.jpg `
+				: '../images/misc/home-bg.jpg'})
 		top left / cover no-repeat;
 	@media (max-width: 1100px) {
 		${({ dontShowOnSmallViewPort }) =>
@@ -17,12 +19,12 @@ background: none;
 `;
 
 //export const Frame = styled.div``;
-export const Group = styled.div`
+export const Group = styled.div `
 	display: flex;
 	align-items: center;
 `;
 
-export const Container = styled.div`
+export const Container = styled.div `
 	display: flex;
 	margin: 0 56px;
 	height: 64px;
@@ -38,18 +40,20 @@ export const Container = styled.div`
 	}
 `;
 
-export const Logo = styled.img`
+export const Logo = styled.img `
 	height: 75px;
 	width: 108px;
 	margin-right: 40px;
+	padding-top: 40px;
 
 	@media (min-width: 1449px) {
-		height: 75px;
+		height: 95px;
 		width: 167px;
 	}
 `;
 
-export const ButtonLink = styled(ReactRouterLink)`
+export const ButtonLink = styled(ReactRouterLink)
+`
 	display: block;
 	background-color: #455a64;
 	width: 84px;
@@ -68,7 +72,7 @@ export const ButtonLink = styled(ReactRouterLink)`
 	}
 `;
 
-export const Picture = styled.button`
+export const Picture = styled.button `
 	background: url(${({ src }) => src});
 	background-size: contain;
 	border: 0;
@@ -76,7 +80,7 @@ export const Picture = styled.button`
 	height: 32px;
 	cursor: pointer;
 `;
-export const Link = styled.p`
+export const Link = styled.p `
 	color: white;
 	text-decoration: none;
 	margin-right: 30px;
@@ -89,7 +93,7 @@ export const Link = styled.p`
 		margin-right: 0;
 	}
 `;
-export const Dropdown = styled.div`
+export const Dropdown = styled.div `
 	display: none;
 	position: absolute;
 	background-color: black;
@@ -119,7 +123,7 @@ export const Dropdown = styled.div`
 		margin-top: 0;
 	}
 `;
-export const PlayButton = styled.button`
+export const PlayButton = styled.button `
 	box-shadow: 0 0.6vw 1vw -0.4vw rgba(0, 0, 0, 0.35);
 	background-color: #e6e6e6;
 	color: #000;
@@ -138,7 +142,7 @@ export const PlayButton = styled.button`
 	}
 `;
 
-export const SearchInput = styled.input`
+export const SearchInput = styled.input `
 	background-color: #44444459;
 	color: white;
 	border: 1px solid white;
@@ -151,7 +155,7 @@ export const SearchInput = styled.input`
 	width: ${({ active }) => (active === true ? '200px' : '0px')};
 `;
 
-export const Search = styled.div`
+export const Search = styled.div `
 	display: flex;
 	align-items: center;
 	svg {
@@ -162,7 +166,7 @@ export const Search = styled.div`
 		display: none;
 	}
 `;
-export const SearchIcon = styled.button`
+export const SearchIcon = styled.button `
 	cursor: pointer;
 	background-color: transparent;
 	border: 0;
@@ -171,7 +175,7 @@ export const SearchIcon = styled.button`
 		width: 16px;
 	}
 `;
-export const Profile = styled.div`
+export const Profile = styled.div `
 	display: flex;
 	align-items: center;
 	margin-left: 20px;
@@ -185,7 +189,8 @@ export const Profile = styled.div`
 	}
 `;
 
-export const Feature = styled(Container)`
+export const Feature = styled(Container)
+`
 	padding: 150px 0 500px 0;
 	flex-direction: column;
 	align-items: normal;
@@ -196,7 +201,7 @@ export const Feature = styled(Container)`
 	}
 `;
 
-export const Text = styled.p`
+export const Text = styled.p `
 	color: white;
 	font-size: 22px;
 	line-height: normal;
@@ -204,7 +209,7 @@ export const Text = styled.p`
 	margin: 0;
 `;
 
-export const FeatureCallOut = styled.h2`
+export const FeatureCallOut = styled.h2 `
 	color: white;
 	font-size: 50px;
 	line-height: normal;
