@@ -3,8 +3,8 @@ import { HeaderContainer } from '../containers/header';
 import { Feature, OptForm } from '../components';
 
 import { JumbotronContainer } from '../containers/jumbotron';
+import { FaqsContainer } from '../containers/faqs';
 ////import { FooterContainer } from '../containers/footer';
-//import { FaqsContainer } from '../containers/faqs';
 
 export default function Home() {
 	return (
@@ -30,6 +30,7 @@ export default function Home() {
 				</Feature>{' '}
 			</HeaderContainer>{' '}
 			<JumbotronContainer />
+			<FaqsContainer />
 		</>
 	);
 }
