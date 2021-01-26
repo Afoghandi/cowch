@@ -9,7 +9,7 @@ export function HeaderContainer({ children }) {
 		<Header>
 			<Header.Frame>
 				<Header.Logo to={ROUTES.HOME} alt='Cowch' src={logo} />{' '}
-				<Header.ButtonLink> Sign In </Header.ButtonLink>{' '}
+				<Header.ButtonLink to={ROUTES.SIGN_IN}> Sign In </Header.ButtonLink>{' '}
 			</Header.Frame>{' '}
 			{children}{' '}
 		</Header>

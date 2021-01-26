@@ -1,15 +1,19 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { Home } from './pages';
+import * as ROUTES from './constants/routes';
+
+import { Home, Signin, Signup } from './pages';
 
 function App() {
 	return (
 		<>
 			<Router>
+				<Route exact path='/' component={Home} />{' '}
 				<Switch>
-					<Home />
+					<Route path={ROUTES.SIGN_IN} component={Signin} />{' '}
+					<Route path={ROUTES.SIGN_UP} component={Signup} />{' '}
 				</Switch>
 			</Router>{' '}
 		</>
