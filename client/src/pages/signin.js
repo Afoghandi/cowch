@@ -7,17 +7,21 @@ import { Form } from '../components';
 import * as ROUTES from '../constants/routes';
 
 export default function Signin() {
-	const history = useHistory();
+	//const history = useHistory();
+	const [formData, setFormData] = useState({ email: '', password: '' });
 
-	const [emailAddress, setEmailAddress] = useState('');
-	const [password, setPassword] = useState('');
+	const { email, password } = formData;
+
 	const [error, setError] = useState('');
 
-	const isInvalid = password === '' || emailAddress === '';
+	const isInvalid = password === '' || email === '';
 
-	const handleSignin = (e) => {
+	const onChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
+	const onSubmit = (e) => {
 		e.preventDefault();
-		//firebase
+		console.log('SUCCESS');
 	};
 
 	return (
@@ -27,19 +31,21 @@ export default function Signin() {
 				<Form>
 					<Form.Title>Sign In </Form.Title>
 					{error && <Form.Error>Error</Form.Error>}
-					<Form.Base onSubmit={handleSignin} method='POST'>
+					<Form.Base onSubmit={(e) => onSubmit(e)}>
 						<Form.Input
 							placeholder='Email address'
-							value={emailAddress}
-							onChange={({ target }) => setEmailAddress(target.value)}
+							name='email'
+							value={email}
+							onChange={(e) => onChange(e)}
 						/>
 
 						<Form.Input
 							type='password'
 							value={password}
 							autoComplete='off'
+							name='password'
 							placeholder='Password'
-							onChange={({ target }) => setPassword(target.value)}
+							onChange={(e) => onChange(e)}
 						/>
 
 						<Form.Submit

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 //import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
 import { Form } from '../components';
@@ -21,12 +22,29 @@ export default function Signup() {
 	const isInvalid =
 		name === '' || password === '' || password2 === '' || email === '';
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== password2) {
 			console.log('password do not match');
 		} else {
-			console.log(formData);
+			console.log('SUCCESS');
+			/*const newUser = {
+				name,
+				email,
+				password,
+			};
+			try {
+				const config = {
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				};
+				const body = JSON.stringify(newUser);
+				const res = await axios.post('/api/users', body, config);
+				console.log(res.data);
+			} catch (err) {
+				console.error(err.response.data);
+			}*/
 		}
 	};
 
