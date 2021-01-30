@@ -16,5 +16,7 @@ from './accordion';
 export { default as Form }
 from './form';
 
+export { default as Alert }
+from './alert';
 export { default as Footer }
 from './footer';

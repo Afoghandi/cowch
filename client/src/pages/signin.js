@@ -30,7 +30,7 @@ export default function Signin() {
 				{' '}
 				<Form>
 					<Form.Title>Sign In </Form.Title>
-					{error && <Form.Error>Error</Form.Error>}
+					{error && <Form.Error>{error}</Form.Error>}
 					<Form.Base onSubmit={(e) => onSubmit(e)}>
 						<Form.Input
 							placeholder='Email address'

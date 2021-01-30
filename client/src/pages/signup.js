@@ -1,12 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { setAlert } from '../actions/alert';
+import PropTypes from 'prop-types';
+
 //import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+
 import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
+import AlertMessage from '../containers/alertMessage';
 import { Form } from '../components';
+
 //import * as ROUTES from '../constants/routes';
 
-export default function Signup() {
+const Signup = ({ setAlert }) => {
 	//const history = useHistory();
 
 	const [formData, setFormData] = useState({
@@ -25,26 +31,9 @@ export default function Signup() {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (password !== password2) {
-			console.log('password do not match');
+			setAlert('password do not match', 'danger');
 		} else {
 			console.log('SUCCESS');
-			/*const newUser = {
-				name,
-				email,
-				password,
-			};
-			try {
-				const config = {
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				};
-				const body = JSON.stringify(newUser);
-				const res = await axios.post('/api/users', body, config);
-				console.log(res.data);
-			} catch (err) {
-				console.error(err.response.data);
-			}*/
 		}
 	};
 
@@ -52,11 +41,11 @@ export default function Signup() {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 	return (
-		<>
+		<Fragment>
 			<HeaderContainer>
-				{' '}
 				<Form>
 					<Form.Title>Sign Up </Form.Title>
+					<AlertMessage />
 					{error && <Form.Error>{error}</Form.Error>}
 					<Form.Base onSubmit={(e) => onSubmit(e)}>
 						<Form.Input
@@ -117,6 +106,10 @@ export default function Signup() {
 			</HeaderContainer>
 			;
 			<FooterContainer />
-		</>
+		</Fragment>
 	);
-}
+};
+Signup.propTypes = {
+	setAlert: PropTypes.func.isRequired,
+};
+export default connect(null, { setAlert })(Signup);
