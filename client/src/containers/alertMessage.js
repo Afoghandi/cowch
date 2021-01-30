@@ -8,7 +8,12 @@ function AlertMessage({ alerts }) {
 	return (
 		alerts !== null &&
 		alerts.length > 0 &&
-		alerts.map((alert) => <Alert key={alert.id}>{alert.msg}</Alert>)
+		alerts.map((alert) => (
+			<Alert key={alert.id} alertType={alert.alertType}>
+				{console.log(alert.alertType)}
+				{alert.msg}
+			</Alert>
+		))
 	);
 }
 
