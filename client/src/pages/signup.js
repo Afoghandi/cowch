@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../actions/alert';
+import { signup } from '../actions/auth';
 import PropTypes from 'prop-types';
 
 //import { useHistory } from 'react-router-dom';
@@ -12,7 +13,7 @@ import { Form } from '../components';
 
 //import * as ROUTES from '../constants/routes';
 
-const Signup = ({ setAlert }) => {
+const Signup = ({ setAlert, signup }) => {
 	//const history = useHistory();
 
 	const [formData, setFormData] = useState({
@@ -23,8 +24,6 @@ const Signup = ({ setAlert }) => {
 	});
 	const { name, email, password, password2 } = formData;
 
-	const [error, setError] = useState('');
-
 	const isInvalid =
 		name === '' || password === '' || password2 === '' || email === '';
 
@@ -33,7 +32,7 @@ const Signup = ({ setAlert }) => {
 		if (password !== password2) {
 			setAlert('password do not match', 'danger');
 		} else {
-			console.log('SUCCESS');
+			signup({ name, email, password });
 		}
 	};
 
@@ -46,21 +45,19 @@ const Signup = ({ setAlert }) => {
 				<Form>
 					<Form.Title>Sign Up </Form.Title>
 					<AlertMessage />
-					{error && <Form.Error>{error}</Form.Error>}
+
 					<Form.Base onSubmit={(e) => onSubmit(e)}>
 						<Form.Input
 							placeholder='First Name'
 							name='name'
 							value={name}
 							onChange={(e) => onChange(e)}
-							required
 						/>
 						<Form.Input
 							placeholder='Email address'
 							name='email'
 							value={email}
 							onChange={(e) => onChange(e)}
-							required
 						/>
 
 						<Form.Input
@@ -70,7 +67,6 @@ const Signup = ({ setAlert }) => {
 							autoComplete='off'
 							placeholder='Password'
 							onChange={(e) => onChange(e)}
-							required
 						/>
 						<Form.Input
 							type='password'
@@ -79,7 +75,6 @@ const Signup = ({ setAlert }) => {
 							autoComplete='off'
 							placeholder='Confirm Password'
 							onChange={(e) => onChange(e)}
-							required
 						/>
 
 						<Form.Submit
@@ -111,5 +106,6 @@ const Signup = ({ setAlert }) => {
 };
 Signup.propTypes = {
 	setAlert: PropTypes.func.isRequired,
+	signup: PropTypes.func.isRequired,
 };
-export default connect(null, { setAlert })(Signup);
+export default connect(null, { setAlert, signup })(Signup);
