@@ -1,19 +1,27 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import * as ROUTES from './constants/routes';
+import { ProtectedRoute, IsUserRedirect } from './helpers/routes';
 
-import { Home, Signin, Signup } from './pages';
+import { Home, Signin, Signup, Browse } from './pages';
 
 //Redux
 import { Provider } from 'react-redux';
+import { loadUser, loadToken } from './actions/auth';
 
 import store from './store';
 
-function App() {
+const App = () => {
+	useEffect(() => {
+		store.dispatch(loadToken());
+		store.dispatch(loadUser());
+	}, []);
+
 	return (
-		<>
+		<Fragment>
 			<Provider store={store}>
 				<Router>
 					<Route exact path='/' component={Home} />{' '}
@@ -23,8 +31,8 @@ function App() {
 					</Switch>
 				</Router>{' '}
 			</Provider>
-		</>
+		</Fragment>
 	);
-}
+};
 
 export default App;

@@ -1,18 +1,17 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { signin } from '../actions/auth';
 
 import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
 import { Form } from '../components';
-import * as ROUTES from '../constants/routes';
 
-export default function Signin() {
-	//const history = useHistory();
+function Signin({ signin, isAuthenticated }) {
 	const [formData, setFormData] = useState({ email: '', password: '' });
 
 	const { email, password } = formData;
-
-	const [error, setError] = useState('');
 
 	const isInvalid = password === '' || email === '';
 
@@ -21,16 +20,19 @@ export default function Signin() {
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log('SUCCESS');
+		signin(email, password);
 	};
 
+	if (isAuthenticated) {
+		return <Redirect to='/browse' />;
+	}
 	return (
-		<>
+		<Fragment>
 			<HeaderContainer>
 				{' '}
 				<Form>
 					<Form.Title>Sign In </Form.Title>
-					{error && <Form.Error>{error}</Form.Error>}
+
 					<Form.Base onSubmit={(e) => onSubmit(e)}>
 						<Form.Input
 							placeholder='Email address'
@@ -71,6 +73,18 @@ export default function Signin() {
 			</HeaderContainer>
 			;
 			<FooterContainer />
-		</>
+		</Fragment>
 	);
 }
+
+Signin.propTypes = {
+	signin: PropTypes.func.isRequired,
+
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { signin })(Signin);

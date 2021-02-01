@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setAlert } from '../actions/alert';
 import { signup } from '../actions/auth';
@@ -13,7 +14,7 @@ import { Form } from '../components';
 
 //import * as ROUTES from '../constants/routes';
 
-const Signup = ({ setAlert, signup }) => {
+const Signup = ({ setAlert, signup, isAuthenticated }) => {
 	//const history = useHistory();
 
 	const [formData, setFormData] = useState({
@@ -39,6 +40,10 @@ const Signup = ({ setAlert, signup }) => {
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
+
+	if (isAuthenticated) {
+		return <Redirect to='/browse' />;
+	}
 	return (
 		<Fragment>
 			<HeaderContainer>
@@ -107,5 +112,12 @@ const Signup = ({ setAlert, signup }) => {
 Signup.propTypes = {
 	setAlert: PropTypes.func.isRequired,
 	signup: PropTypes.func.isRequired,
+
+	isAuthenticated: PropTypes.bool,
 };
-export default connect(null, { setAlert, signup })(Signup);
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { setAlert, signup })(Signup);
