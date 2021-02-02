@@ -18,5 +18,8 @@ from './form';
 
 export { default as Alert }
 from './alert';
+
+export { default as Profiles }
+from './profiles';
 export { default as Footer }
 from './footer';

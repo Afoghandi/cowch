@@ -8,7 +8,7 @@ import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
 import { Form } from '../components';
 
-function Signin({ signin, isAuthenticated }) {
+function Signin({ signin, auth: { isAuthenticated } }) {
 	const [formData, setFormData] = useState({ email: '', password: '' });
 
 	const { email, password } = formData;
@@ -80,11 +80,11 @@ function Signin({ signin, isAuthenticated }) {
 Signin.propTypes = {
 	signin: PropTypes.func.isRequired,
 
-	isAuthenticated: PropTypes.bool,
+	auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
+	auth: state.auth,
 });
 
 export default connect(mapStateToProps, { signin })(Signin);

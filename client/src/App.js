@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import * as ROUTES from './constants/routes';
 import { ProtectedRoute, IsUserRedirect } from './helpers/routes';
+import PrivateRoute from './helpers/routes';
 
 import { Home, Signin, Signup, Browse } from './pages';
 
@@ -28,6 +29,7 @@ const App = () => {
 					<Switch>
 						<Route path={ROUTES.SIGN_IN} component={Signin} />{' '}
 						<Route path={ROUTES.SIGN_UP} component={Signup} />{' '}
+						<PrivateRoute path={ROUTES.BROWSE} component={Browse} />{' '}
 					</Switch>
 				</Router>{' '}
 			</Provider>

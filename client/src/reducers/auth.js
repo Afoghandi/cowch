@@ -6,6 +6,7 @@ import {
     TOKEN_LOADED,
     SIGNIN_SUCCESS,
     SIGNIN_FAIL,
+    LOGOUT,
     AUTH_ERROR,
 } from '../constants/types';
 
@@ -42,6 +43,7 @@ export default function(state = initialState, action) {
             };
         case SIGNUP_FAIL:
         case SIGNIN_FAIL:
+        case LOGOUT:
         case AUTH_ERROR:
             localStorage.removeItem('token');
             return {

@@ -1,8 +1,36 @@
 import React from 'react';
 
 import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export function IsUserRedirect({
+const PrivateRoute = ({
+	component: Component,
+	auth: { isAuthenticated, loading },
+	...rest
+}) => (
+	<Route
+		{...rest}
+		render={(props) =>
+			!isAuthenticated && !loading ? (
+				<Redirect to='/signin' />
+			) : (
+				<Component {...props} />
+			)
+		}
+	/>
+);
+
+PrivateRoute.propTypes = {
+	auth: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps)(PrivateRoute);
+
+/*export function IsUserRedirect({
 	isAuthenticated,
 	loggedInPath,
 	children,
@@ -51,4 +79,4 @@ export function ProtectedRoute({ isAuthenticated, children, ...rest }) {
 			}}
 		/>
 	);
-}
+}*/

@@ -9,6 +9,7 @@ import {
     AUTH_ERROR,
     SIGNIN_SUCCESS,
     SIGNIN_FAIL,
+    LOGOUT,
 } from '../constants/types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -95,4 +96,10 @@ export const signin = (email, password) => async(dispatch) => {
             type: SIGNIN_FAIL,
         });
     }
+};
+
+// Logout / clear profile
+
+export const logout = () => (dispatch) => {
+    dispatch({ type: LOGOUT });
 };

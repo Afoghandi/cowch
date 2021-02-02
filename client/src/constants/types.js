@@ -7,4 +7,5 @@ export const USER_LOADED = 'USER_LOADED';
 export const TOKEN_LOADED = 'TOKEN_LOADED';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNIN_FAIL = 'SIGNIN_FAIL';
+export const LOGOUT = 'LOGOUT';
 export const AUTH_ERROR = 'AUTH_ERROR';
