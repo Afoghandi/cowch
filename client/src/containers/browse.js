@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SelectProfileContainer } from './profile';
+import SelectProfileContainer from './profile';
 
 export function BrowseContainer() {
 	return <SelectProfileContainer />;

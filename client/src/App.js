@@ -1,10 +1,9 @@
 import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import * as ROUTES from './constants/routes';
-import { ProtectedRoute, IsUserRedirect } from './helpers/routes';
+//import { ProtectedRoute, IsUserRedirect } from './helpers/routes';
 import PrivateRoute from './helpers/routes';
 
 import { Home, Signin, Signup, Browse } from './pages';

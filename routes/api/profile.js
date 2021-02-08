@@ -10,7 +10,7 @@ const { route } = require('./users');
 //@route      Get api/profile
 //@desc       Gets the default profile in 'Who's watching' component
 
-router.get('/me', auth, async(req, res) => {
+router.get('/', auth, async(req, res) => {
     try {
         const profile = await Profile.findOne({ user: req.user.id }).populate(
             'user',
@@ -18,6 +18,25 @@ router.get('/me', auth, async(req, res) => {
         );
         if (!profile) {
             return res.status(400).json({ msg: 'No profile set up yet' });
+        }
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+});
+
+//@route      get api/profile
+
+//@desc       returns all profiles associated with the user
+//@access     Private;
+router.get('/me2', auth, async(req, res) => {
+    try {
+        const profiles = await Profile.find({
+            user: req.user.id,
+        }).populate('user', ['name']);
+
+        if (profiles) {
+            res.json(profiles);
         }
     } catch (err) {
         console.error(err.message);
@@ -80,25 +99,6 @@ router.delete('/', auth, async(req, res) => {
         //Remove User
         await User.findOneAndRemove({ _id: req.user.id });
         res.json({ msg: 'User deleted' });
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server Error');
-    }
-});
-
-//@route      get api/profile
-
-//@desc       returns all profiles associated with the user
-//@access     Private;
-router.get('/', auth, async(req, res) => {
-    try {
-        const profiles = await Profile.find({
-            user: req.user.id,
-        }).populate('user', ['name']);
-
-        if (profiles) {
-            res.json(profiles);
-        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
