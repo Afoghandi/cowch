@@ -23,3 +23,9 @@ export { default as Profiles }
 from './profiles';
 export { default as Footer }
 from './footer';
+
+export { default as Card }
+from './card';
+
+export { default as Player }
+from './player';

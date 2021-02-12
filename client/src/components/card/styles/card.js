@@ -6,7 +6,13 @@ export const Title = styled.p `
 	font-weight: bold;
 	margin-left: 56px;
 	margin-right: 56px;
-	margin-top: 0;
+	margin-top: 130px;
+	@media (max-width: 1000px) {
+		margin-top: 0px;
+	}
+	&::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 export const Container = styled.div `
@@ -14,8 +20,11 @@ export const Container = styled.div `
 	flex-direction: column;
 	margin-bottom: 50px;
 	box-sizing: border-box;
+	overflow-y: hidden;
+	overflow-x: scroll;
+	padding: 20px;
 	${Title} {
-		@media (max-width: 100px) {
+		@media (max-width: 1000px) {
 			margin-left: 30px;
 		}
 	}
@@ -26,10 +35,9 @@ export const Container = styled.div `
 
 export const Group = styled.div `
 	display: flex;
-	overflow-y: hidden;
-	overflow-x: scroll;
+
 	padding: 20px;
-	flex-direction: ${({ flexDirection }) =>
+	/*flex-direction: ${({ flexDirection }) =>
 		flexDirection === 'row' ? 'row' : 'column '};
 	${({ alignItems }) =>
 		alignItems &&
@@ -40,14 +48,11 @@ align - items: $ { alignItems }
 		margin &&
 		`
 margin: $ { margin }
-`};
+`};*/
 	${Container}:first-of-type {
 		@media (min-width: 1100px) {
 			margin-top: -150px;
 		}
-	}
-	&-::-webkit-scrollbar {
-		display: none;
 	}
 `;
 export const SubTitle = styled.p `
@@ -145,7 +150,7 @@ export const Entities = styled.div `
 	flex-direction: row;
 `;
 
-export const Item = styled.dic `
+export const Item = styled.div `
 	display: flex;
 	flex-direction: column;
 	margin-right: 5px;
@@ -168,14 +173,19 @@ export const Item = styled.dic `
 			margin-right: 30px;
 		}
 	}
+	::-webkit-scrollbar {
+		display: none;
+	}
 `;
 
 export const Image = styled.img `
 	border: 0;
-	width: 100%;
-	max-width: 305px;
+	width: 150px;
+
+	//max-width: ${(props) => (props.isLargeCard ? '30px' : '350px')};
 	cursor: pointer;
-	height: auto;
+	//height: 350px;
 	padding: 0;
 	margin: 0;
+	object-fit: contain;
 `;

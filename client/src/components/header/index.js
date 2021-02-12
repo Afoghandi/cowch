@@ -19,6 +19,7 @@ import {
 	SearchIcon,
 	SearchInput,
 	PlayButton,
+	FadeBottom,
 } from './styles/header';
 
 export default function Header({ bg = true, children, ...restProps }) {
