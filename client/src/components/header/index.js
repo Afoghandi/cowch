@@ -19,7 +19,6 @@ import {
 	SearchIcon,
 	SearchInput,
 	PlayButton,
-	FadeBottom,
 } from './styles/header';
 
 export default function Header({ bg = true, children, ...restProps }) {
@@ -75,7 +74,12 @@ Header.Search = function HeaderSearch({
 };
 
 Header.Picture = function HeaderPicture({ src, ...restProps }) {
-	return <Picture {...restProps} src={`/images/users/${src}.png`} />;
+	return (
+		<Picture
+			{...restProps}
+			src={src ? `/images/icons/search.png` : '/images/misc/loading.gif'}
+		/>
+	);
 };
 
 Header.Dropdown = function HeaderDropdown({ children, ...restProps }) {

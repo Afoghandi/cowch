@@ -1,11 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import axios from '../utils/axios';
-import { Card, Player } from '../components';
+import { Row } from '../components';
 import YouTube from 'react-youtube';
 import movieTrailer from 'movie-trailer';
-import { FooterContainer } from './footer';
-
-//import requests from '../lib/requests';
 
 export default function BrowseCard({ title, fetchUrl, isLargeCard }) {
 	const [movies, setMovies] = useState([]);
@@ -51,46 +48,22 @@ export default function BrowseCard({ title, fetchUrl, isLargeCard }) {
 
 	return (
 		<Fragment>
-			<Card.Group>
-				<Card.Title> {title}</Card.Title>
-				{}
-
-				<Card>
-					<Card.Title> </Card.Title>
-
-					<Card.Entities>
-						{movies.map((movie) => (
-							<Card.Item key={movie.id}>
-								<Card.Image
-									src={`${base_url}${
-										isLargeCard ? movie.poster_path : movie.backdrop_path
-									}`}
-								/>
-								<Card.Meta>
-									<Card.SubTitle
-										onClick={() => {
-											handleClick(movie);
-										}}
-									></Card.SubTitle>
-								</Card.Meta>
-							</Card.Item>
-						))}
-					</Card.Entities>
-					<Card.Feature>
-						<Player>
-							<Player.Button
-								onClick={() => {
-									handleClick('helo');
-								}}
-							/>
-							{trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
-							{trailerUrl && (
-								<YouTube.Player.Video videoId={trailerUrl} opts={opts} />
-							)}
-						</Player>
-					</Card.Feature>
-				</Card>
-			</Card.Group>
+			<Row>
+				<h2>{title} </h2>
+				<Row.RowPosters>
+					{movies.map((movie) => (
+						<Row.Image
+							key={movie.id}
+							onClick={() => handleClick(movie)}
+							src={`${base_url}${
+								isLargeCard ? movie.backdrop_path : movie.poster_path
+							}`}
+							alt={movie.name}
+						/>
+					))}
+				</Row.RowPosters>
+				{trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+			</Row>
 		</Fragment>
 	);
 }

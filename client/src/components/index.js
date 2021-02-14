@@ -24,8 +24,5 @@ from './profiles';
 export { default as Footer }
 from './footer';
 
-export { default as Card }
-from './card';
-
-export { default as Player }
-from './player';
+export { default as Row }
+from './row';

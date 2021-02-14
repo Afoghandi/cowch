@@ -5,18 +5,12 @@ import { setAlert } from '../actions/alert';
 import { signup } from '../actions/auth';
 import PropTypes from 'prop-types';
 
-//import { useHistory } from 'react-router-dom';
-
 import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
 import AlertMessage from '../containers/alertMessage';
 import { Form } from '../components';
 
-//import * as ROUTES from '../constants/routes';
-
 const Signup = ({ setAlert, signup, isAuthenticated }) => {
-	//const history = useHistory();
-
 	const [formData, setFormData] = useState({
 		name: '',
 		email: '',

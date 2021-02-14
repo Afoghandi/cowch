@@ -1,4 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logout } from '../actions/auth';
 import { Header } from '../components';
 import * as ROUTES from '../constants/routes';
 import SelectProfileContainer from './profile';
@@ -7,9 +10,13 @@ import requests from '../lib/requests';
 import BrowseCard from './card';
 import axios from '../utils/axios';
 
-export function BrowseContainer({ user }) {
+function BrowseContainer({ auth: { user, loading }, logout }) {
+	//state for banner image
 	const [coverImage, setCoverImage] = useState([]);
-	//const base_url = 'https://image.tmdb.org/t/p/original/';
+
+	const [profile, setProfile] = useState({});
+
+	// Get movie APIs
 
 	useEffect(() => {
 		try {
@@ -28,17 +35,19 @@ export function BrowseContainer({ user }) {
 			console.error(error);
 		}
 	}, []);
+
+	//function to truncate banner text
 	function truncate(str, n) {
 		return str?.length > n ? str.substr(0, n - 1) + '...' : str;
 	}
-	return (
+	return profile.displayName ? (
 		<Fragment>
-			<Header>
+			<Header
+				img={`https://image.tmdb.org/t/p/original/${coverImage?.backdrop_path}`}
+			>
 				<Header.Frame>
 					<Header.Group>
 						<Header.Logo to={ROUTES.HOME} src={logo} alt='Cowch' />
-						<Header.TextLink>Series</Header.TextLink>
-						<Header.TextLink>Films</Header.TextLink>
 					</Header.Group>
 					<Header.Group>
 						<Header.Profile>
@@ -46,11 +55,11 @@ export function BrowseContainer({ user }) {
 							<Header.Picture />
 							<Header.Dropdown>
 								<Header.Group>
-									<Header.Picture />
-									<Header.TextLink>Hello</Header.TextLink>
+									<Header.Picture src={user && user.avatar} alt='name' />
+									<Header.TextLink>{user.name}</Header.TextLink>
 								</Header.Group>
 								<Header.Group>
-									<Header.TextLink>Sign Out</Header.TextLink>
+									<Header.TextLink onClick={logout}>Log Out</Header.TextLink>
 								</Header.Group>
 							</Header.Dropdown>
 						</Header.Profile>{' '}
@@ -65,14 +74,27 @@ export function BrowseContainer({ user }) {
 				</Header.Feature>
 			</Header>
 			<BrowseCard
-				isLargeCard
 				title='coWch Originals'
+				isLargeCard
 				fetchUrl={requests.fetchNetflixOriginals}
 			/>
 			<BrowseCard title='Romance' fetchUrl={requests.fetchRomanceMovies} />
 			<BrowseCard title='Top Rated' fetchUrl={requests.fetchTopRated} />
 			<BrowseCard title='Trending' fetchUrl={requests.fetchTrending} />
-			<SelectProfileContainer />
+		</Fragment>
+	) : (
+		<Fragment>
+			<SelectProfileContainer user={user} setProfile={setProfile} />
 		</Fragment>
 	);
 }
+BrowseContainer.propTypes = {
+	auth: PropTypes.object.isRequired,
+	logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(BrowseContainer);

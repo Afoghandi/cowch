@@ -5,13 +5,14 @@ import { getCurrentProfile, createProfile } from '../actions/profile';
 import { Header, Form } from '../components';
 import * as ROUTES from '../constants/routes';
 import { Profiles } from '../components';
+import { FooterContainer } from './footer';
 
 import logo from '../logo.png';
 import { withRouter } from 'react-router-dom';
 
 const SelectProfileContainer = ({
 	getCurrentProfile,
-	auth: { user },
+	user,
 	createProfile,
 	history,
 	setProfile,
@@ -53,7 +54,7 @@ const SelectProfileContainer = ({
 						}}
 					>
 						<Profiles.Picture src={user && user.avatar} alt='profile picture' />
-						<Profiles.Name>{user && user.email} </Profiles.Name>
+						<Profiles.Name>{user && user.name} </Profiles.Name>
 					</Profiles.User>
 					<Profiles.User>
 						<Profiles.Picture src={user && user.avatar} alt='profile picture' />
@@ -89,6 +90,7 @@ const SelectProfileContainer = ({
 					</Form.Submit>
 				</Form.Base>
 			</Form>
+			<FooterContainer />
 		</Fragment>
 	);
 };

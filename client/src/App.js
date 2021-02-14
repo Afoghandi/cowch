@@ -3,7 +3,7 @@ import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import * as ROUTES from './constants/routes';
-//import { ProtectedRoute, IsUserRedirect } from './helpers/routes';
+
 import PrivateRoute from './helpers/routes';
 
 import { Home, Signin, Signup, Browse } from './pages';
