@@ -1,5 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://afo123:afo123@cowch.5th6c.mongodb.net/test?retryWrites=true&w=majority",
+    "mongoURI": "mongodb+srv://rafa:CBbF7NT2NC0lX0ml@cluster0.ycytx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
 
     "jwtSecret": "mysecrettoken"
 }
+
