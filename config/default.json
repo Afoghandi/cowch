@@ -1,6 +1,0 @@
-{
-    "mongoURI": "mongodb+srv://rafa:CBbF7NT2NC0lX0ml@cluster0.ycytx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-
-    "jwtSecret": "mysecrettoken"
-}
-

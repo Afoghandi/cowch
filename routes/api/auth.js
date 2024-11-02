@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const config = require('config');
+
 const { check, validationResult } = require('express-validator');
 
 const bcrypt = require('bcryptjs');
@@ -59,9 +59,12 @@ router.post(
             };
             jwt.sign(
                 payload,
-                config.get('jwtSecret'), { expiresIn: 36000 },
+                process.env.JWT_SECRET,
+                 { expiresIn: '10h'},
                 (err, token) => {
-                    if (err) throw err;
+                    if (err){ console.error("Token generation error: ", err.message)
+                        return res.status(500).send('Token generation error');
+                    };
                     res.json({ token });
                 }
             );

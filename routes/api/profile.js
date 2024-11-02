@@ -19,6 +19,7 @@ router.get('/', auth, async(req, res) => {
         if (!profile) {
             return res.status(400).json({ msg: 'No profile set up yet' });
         }
+        return res.json(profile);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
@@ -56,23 +57,24 @@ router.post(
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const { profileName, photoUrl, userName } = req.body;
+        const { profileName='Viewer' , photoUrl, userName } = req.body;
 
         //build profile object
-        const profileFields = {};
-        profileFields.user = req.user.id;
-
-        if (profileName) profileFields.profileName = profileName;
-        if (userName) profileFields.userName = userName;
-        if (photoUrl) profileFields.photoUrl = photoUrl;
+        const profileFields = {
+            user:req.user.id,
+            profileName,
+            userName,
+            photoUrl
+        };
+       
 
         try {
             // if there is profile
-            let profile = await Profile.findOne({ profileName });
+            let profile = await Profile.findOne({ user:req.user.id, profileName });
 
             if (profile) {
                 //update
-                profile = await Profile.findOneAndUpdate({ profile: req.params.profiles_id }, { $set: profileFields }, { new: true });
+                profile = await Profile.findOneAndUpdate({ _id: profiles_id }, { $set: profileFields }, { new: true });
                 return res.json(profile);
             }
             //create
@@ -82,6 +84,10 @@ router.post(
             res.json(profile);
         } catch (err) {
             console.error(err.message);
+
+            if(err.code === 11000){
+                return res.status(400).json({msg:"Profile name already exist for this user" });
+            }
             res.status(500).send('Server error');
         }
     }
@@ -94,7 +100,7 @@ router.post(
 //@access    Private
 router.delete('/', auth, async(req, res) => {
     try {
-        //Remover Profile
+        //Remove Profile
         await Profile.findOneAndRemove({ user: req.user.id });
         //Remove User
         await User.findOneAndRemove({ _id: req.user.id });
@@ -111,11 +117,15 @@ router.delete('/', auth, async(req, res) => {
 
 router.delete('/:profile_id', auth, async(req, res) => {
     try {
-        await Profile.findOneAndRemove({ user: req.user.id });
+        const profile = await Profile.findOneAndRemove({_id:req.params.profile_id, user: req.user.id});
+        if(!profile){
+            return res.status(404).json({msg:'Profile not found'});
+        }
+       
         res.json('profile has been deleted');
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('Server Erro');
+        res.status(500).send('Server Error');
     }
 });
 

@@ -4,11 +4,13 @@ const Userschema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        trim:true,
     },
     email: {
         type: String,
         required: true,
         unique: true,
+        trim:true,
     },
     password: {
         type: String,
@@ -16,6 +18,7 @@ const Userschema = new mongoose.Schema({
     },
     avatar: {
         type: String,
+         default: 'https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_1280.png',
     },
     date: {
         type: Date,
