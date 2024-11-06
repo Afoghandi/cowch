@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { GlobalStyles } from './global-styles';
 import 'normalize.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-render(
-	<Fragment>
-		<GlobalStyles />
-		<App />
-	</Fragment>,
+const root = createRoot(document.getElementById('root'));
+root.render(<Fragment>
+	<GlobalStyles />
+	<App />
+</Fragment>,)
 
-	document.getElementById('root')
-);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

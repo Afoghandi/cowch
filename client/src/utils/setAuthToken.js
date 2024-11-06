@@ -1,12 +1,13 @@
+// utils/setAuthToken.js
+
+import axios from 'axios';
+
 const setAuthToken = (token) => {
     if (token) {
-        return {
-            headers: {
-                'x-auth-token': token,
-            },
-        };
+        axios.defaults.headers.common['x-auth-token'] = token;
     } else {
-        throw new Error('Token is missing');
+        delete axios.defaults.headers.common['x-auth-token'];
     }
 };
+
 export default setAuthToken;
