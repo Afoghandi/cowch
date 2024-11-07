@@ -11,7 +11,7 @@ import {
 } from '../constants/types';
 
 const initialState = {
-    token: null,
+    token: sessionStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
     user: null,
@@ -35,6 +35,7 @@ export default function(state = initialState, action) {
             };
         case SIGNUP_SUCCESS:
         case SIGNIN_SUCCESS:
+            sessionStorage.setItem('token', payload.token);
             return {
                 ...state,
                 token: payload.token,

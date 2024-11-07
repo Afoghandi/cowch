@@ -13,6 +13,7 @@ import {
 } from '../constants/types';
 import setAuthToken from '../utils/setAuthToken';
 
+
 export const loadToken = () => async(dispatch) => {
     if (sessionStorage.token) {
         return dispatch({
@@ -28,7 +29,10 @@ export const loadToken = () => async(dispatch) => {
 
 //load user
 export const loadUser = () => async(dispatch, getStore) => {
-    try {
+
+    /**
+     * 
+     * try {
         const header = setAuthToken(getStore().auth.token);
         const res = await axios.get('/api/auth', header);
         dispatch({
@@ -40,6 +44,20 @@ export const loadUser = () => async(dispatch, getStore) => {
             type: AUTH_ERROR,
         });
     }
+     */
+
+    if(!sessionStorage.token){
+        dispatch({type:AUTH_ERROR});
+        return;
+    }
+    setAuthToken(sessionStorage.token);
+    try{
+        const res = await axios.get('/api/auth');
+        dispatch({type:USER_LOADED, payload:res.data})
+    }catch(err){
+        dispatch({type:AUTH_ERROR})
+    }
+    
 };
 
 //Register User
@@ -53,6 +71,7 @@ export const signup = ({ name, email, password }) => async(dispatch) => {
     const body = JSON.stringify({ name, email, password });
     try {
         const res = await axios.post('/api/users', body, config);
+        sessionStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNUP_SUCCESS,
             payload: res.data,
@@ -81,6 +100,7 @@ export const signin = (email, password) => async(dispatch) => {
     const body = JSON.stringify({ email, password });
     try {
         const res = await axios.post('/api/auth', body, config);
+        sessionStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNIN_SUCCESS,
             payload: res.data,
