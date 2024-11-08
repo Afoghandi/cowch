@@ -7,8 +7,10 @@ import { signin } from '../actions/auth';
 import { FooterContainer } from '../containers/footer';
 import { HeaderContainer } from '../containers/header';
 import { Form } from '../components';
+import { setAlert } from '../actions/alert';
+import AlertMessage from '../containers/alertMessage';
 
-function Signin({ signin, auth: { isAuthenticated } }) {
+function Signin({ signin, setAlert, auth: { isAuthenticated } }) {
 	const [formData, setFormData] = useState({ email: '', password: '' });
 
 	const { email, password } = formData;
@@ -18,9 +20,14 @@ function Signin({ signin, auth: { isAuthenticated } }) {
 	const onChange = (e) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		signin(email, password);
+		try{
+			await signin(email, password);
+		}catch(err){
+			setAlert('Invalid Credentials', 'danger')
+		}
+		
 	};
 
 	if (isAuthenticated) {
@@ -32,13 +39,14 @@ function Signin({ signin, auth: { isAuthenticated } }) {
 				{' '}
 				<Form>
 					<Form.Title>Sign In </Form.Title>
+					<AlertMessage/>
 
-					<Form.Base onSubmit={(e) => onSubmit(e)}>
+					<Form.Base onSubmit={onSubmit}>
 						<Form.Input
 							placeholder='Email address'
 							name='email'
 							value={email}
-							onChange={(e) => onChange(e)}
+							onChange={onChange}
 						/>
 
 						<Form.Input
@@ -47,7 +55,7 @@ function Signin({ signin, auth: { isAuthenticated } }) {
 							autoComplete='off'
 							name='password'
 							placeholder='Password'
-							onChange={(e) => onChange(e)}
+							onChange={onChange}
 						/>
 
 						<Form.Submit
@@ -79,7 +87,7 @@ function Signin({ signin, auth: { isAuthenticated } }) {
 
 Signin.propTypes = {
 	signin: PropTypes.func.isRequired,
-
+	setAlert: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
 };
 
@@ -87,4 +95,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth,
 });
 
-export default connect(mapStateToProps, { signin })(Signin);
+export default connect(mapStateToProps, { signin , setAlert})(Signin);

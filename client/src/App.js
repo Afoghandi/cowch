@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { loadUser, loadToken } from './actions/auth';
 
 import store from './store';
+import AlertMessage from './containers/alertMessage';
 
 const App = () => {
 	const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ if(loading) return <div>Loading....</div>
 			<Provider store={store}>
 				<Router>
 				<Fragment>
+					<AlertMessage/>
 					<Route exact path='/' component={Home} />{' '}
 					<Switch>
 						<Route path={ROUTES.SIGN_IN} component={Signin} />{' '}

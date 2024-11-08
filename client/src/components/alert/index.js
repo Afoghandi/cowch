@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { Container } from './styles/alert';
+import { Container, CloseButton } from './styles/alert';
 
-export default function Alert({ children, ...restprops }) {
-	return <Container {...restprops}>{children} </Container>;
+export default function Alert({ children, onClose, ...restprops }) {
+	return <Container {...restprops}>{children} 
+	<CloseButton onClick={onClose} aria-label="Close alert">x</CloseButton>
+	</Container>;
 }
