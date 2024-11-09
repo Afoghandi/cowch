@@ -1,6 +1,7 @@
-import axios from 'axios';
+//import axios from 'axios';
 
 import { setAlert } from './alert';
+import { fetchCurrentProfile, createProfile as createProfileService} from '../services/profileService';
 
 import {
     GET_PROFILE,
@@ -13,7 +14,7 @@ import {
 
 export const getCurrentProfile = () => async(dispatch) => {
     try {
-        const res = await axios.get('/api/profile/me2');
+        const res = await fetchCurrentProfile();
 
         dispatch({
             type: GET_PROFILE,
@@ -22,7 +23,7 @@ export const getCurrentProfile = () => async(dispatch) => {
     } catch (err) {
         dispatch({
             type: PROFILE_ERROR,
-            payload: { msg: err.response.statusText, status: err.response.status },
+            payload: { msg: err.response?.statusText, status: err.response?.status },
         });
     }
 };
@@ -32,14 +33,10 @@ export const getCurrentProfile = () => async(dispatch) => {
 export const createProfile = ({ formData, history, edit = false }) => async(
     dispatch
 ) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
+  
 
     try {
-        const res = await axios.post('/api/profile', formData, config);
+        const res= await createProfileService(formData)
         dispatch({
             type: CREATE_PROFILE,
             payload: res.data,
@@ -51,13 +48,13 @@ export const createProfile = ({ formData, history, edit = false }) => async(
             history.push('/browse');
         }
     } catch (err) {
-        const errors = err.response.data.errors;
+        const errors = err.response?.data.errors;
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
         dispatch({
             type: PROFILE_SIGNUP_FAIL,
-            payload: { msg: err.response.statusText, status: err.response.status },
+            payload: { msg: err.response?.statusText, status: err.response?.status },
         });
     }
 };
