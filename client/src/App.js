@@ -8,6 +8,7 @@ import PrivateRoute from './helpers/routes';
 
 import { Home, Signin, Signup, Browse } from './pages';
 
+import LoadingSpinner from './components/loading/index';
 //Redux
 import { Provider } from 'react-redux';
 import { loadUser, loadToken } from './actions/auth';
@@ -26,7 +27,7 @@ const initialiseAuth = async()=>{
 		initialiseAuth();
 		
 	}, []);
-if(loading) return <div>Loading....</div>
+if(loading) return <LoadingSpinner/>
 	return (
 		
 			<Provider store={store}>
