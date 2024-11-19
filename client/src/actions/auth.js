@@ -15,10 +15,10 @@ import setAuthToken from '../utils/setAuthToken';
 
 
 export const loadToken = () => async(dispatch) => {
-    if (sessionStorage.token) {
+    if (localStorage.token) {
         return dispatch({
             type: TOKEN_LOADED,
-            payload: sessionStorage.getItem('token'),
+            payload: localStorage.getItem('token'),
         });
     } else {
         dispatch({
@@ -28,7 +28,9 @@ export const loadToken = () => async(dispatch) => {
 };
 
 //load user
-export const loadUser = () => async(dispatch, getStore) => {
+export const loadUser = () => async(dispatch) => {
+
+    const token = localStorage.getItem('token');
 
     /**
      * 
@@ -46,11 +48,15 @@ export const loadUser = () => async(dispatch, getStore) => {
     }
      */
 
-    if(!sessionStorage.token){
-        dispatch({type:AUTH_ERROR});
-        return;
-    }
-    setAuthToken(sessionStorage.token);
+ 
+  if (token) {
+    setAuthToken(token); 
+    //console.log("Token from load user in action/auth: " + token);
+    
+  } else {
+    dispatch({ type: AUTH_ERROR });
+    return;
+  }
     try{
         const res = await axios.get('/api/auth');
         dispatch({type:USER_LOADED, payload:res.data})
@@ -71,7 +77,7 @@ export const signup = ({ name, email, password }) => async(dispatch) => {
     const body = JSON.stringify({ name, email, password });
     try {
         const res = await axios.post('/api/users', body, config);
-        sessionStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNUP_SUCCESS,
             payload: res.data,
@@ -82,7 +88,7 @@ export const signup = ({ name, email, password }) => async(dispatch) => {
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         dispatch({
             type: SIGNUP_FAIL,
         });
@@ -100,7 +106,7 @@ export const signin = (email, password) => async(dispatch) => {
     const body = JSON.stringify({ email, password });
     try {
         const res = await axios.post('/api/auth', body, config);
-        sessionStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNIN_SUCCESS,
             payload: res.data,
@@ -111,7 +117,7 @@ export const signin = (email, password) => async(dispatch) => {
         if (errors) {
             errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
         }
-        sessionStorage.removeItem('token');
+        localStorage.removeItem('token');
         dispatch({
             type: SIGNIN_FAIL,
         });

@@ -8,10 +8,10 @@ import {
 } from '../constants/types';
 
 const initialState = {
-    profile: {},
-    profiles: {},
+    profile: null,
+    profiles: [],
     loading: true,
-    error: {},
+    error: null,
 };
 
 export default function(state = initialState, action) {
@@ -19,10 +19,15 @@ export default function(state = initialState, action) {
 
     switch (type) {
         case GET_PROFILE:
+            return {
+                ...state,
+                profiles: payload,
+                loading: false,
+            };
         case CREATE_PROFILE:
             return {
                 ...state,
-                profile: payload,
+                profiles:[...state.profiles, payload],
                 loading: false,
             };
         case PROFILE_ERROR:

@@ -15,11 +15,17 @@ import { loadUser, loadToken } from './actions/auth';
 
 import store from './store';
 import AlertMessage from './containers/alertMessage';
+import setAuthToken from './utils/setAuthToken';
 
 const App = () => {
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 const initialiseAuth = async()=>{
+	const token =localStorage.getItem('token')|| sessionStorage.getItem('token')
+	if(token){
+		
+		setAuthToken(token)
+	}
 	store.dispatch(loadToken());
 	await store.dispatch(loadUser());
 	setLoading(false);

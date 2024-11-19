@@ -78,9 +78,14 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 				isLargeCard
 				fetchUrl={requests.fetchNetflixOriginals}
 			/>
-			<BrowseCard title='Romance' fetchUrl={requests.fetchRomanceMovies} />
 			<BrowseCard title='Top Rated' fetchUrl={requests.fetchTopRated} />
 			<BrowseCard title='Trending' fetchUrl={requests.fetchTrending} />
+			<BrowseCard title='Romance' fetchUrl={requests.fetchRomanceMovies} />
+			<BrowseCard title='Netflix Originals' fetchUrl={requests.fetchNetflixOriginals} />
+			<BrowseCard title='Action' fetchUrl={requests.fetchActionMovies} />
+			<BrowseCard title='Horror' fetchUrl={requests.fetchHorrorMovies} />
+			<BrowseCard title= 'Documentaries' fetchUrl={requests.fetchDocumentaries}/>
+	
 		</Fragment>
 	) : (
 		<Fragment>

@@ -13,14 +13,21 @@ import {
 //Get currrent users profile
 
 export const getCurrentProfile = () => async(dispatch) => {
+    //console.log("getCurrentProfile action called"); 
     try {
         const res = await fetchCurrentProfile();
+       // console.log("Profiles fetched from API:", res.data); 
 
         dispatch({
             type: GET_PROFILE,
             payload: res.data,
         });
     } catch (err) {
+       // console.error("Error fetching profiles:", err);
+        if (err.response) {
+            console.error("Response data:", err.response.data);
+            console.error("Response status:", err.response.status);
+          }
         dispatch({
             type: PROFILE_ERROR,
             payload: { msg: err.response?.statusText, status: err.response?.status },
@@ -37,6 +44,7 @@ export const createProfile = ({ formData, history, edit = false }) => async(
 
     try {
         const res= await createProfileService(formData)
+        //console.log("Profiles fetched from API:", res.data); 
         dispatch({
             type: CREATE_PROFILE,
             payload: res.data,

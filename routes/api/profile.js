@@ -30,7 +30,7 @@ router.get('/', auth, async(req, res) => {
 
 //@desc       returns all profiles associated with the user
 //@access     Private;
-router.get('/me2', auth, async(req, res) => {
+router.get('/me', auth, async(req, res) => {
     try {
         const profiles = await Profile.find({
             user: req.user.id,
@@ -74,7 +74,7 @@ router.post(
 
             if (profile) {
                 //update
-                profile = await Profile.findOneAndUpdate({ _id: profiles_id }, { $set: profileFields }, { new: true });
+                profile = await Profile.findOneAndUpdate({ _id: profile_id }, { $set: profileFields }, { new: true });
                 return res.json(profile);
             }
             //create

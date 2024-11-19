@@ -1,6 +1,6 @@
-const API_KEY = process.env.REACT_APP_API_KEY
+//const API_KEY = process.env.REACT_APP_API_KEY
 
-const createRequest = (path)=>`${path}?api_key=${API_KEY}&language=en-US`;
+const createRequest = (path)=>`http://localhost:5100/api/tmdb${path}?&language=en-US`;
 
 
 const requests = {

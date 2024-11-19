@@ -9,15 +9,21 @@ import { FooterContainer } from './footer';
 
 import logo from '../logo.png';
 import { withRouter } from 'react-router-dom';
+import LoadingSpinner from '../components/loading';
 
 const SelectProfileContainer = ({
 	getCurrentProfile,
 	user,
+	profiles,
+	//profile:{profile,  loading},
 	createProfile,
 	history,
 	setProfile,
 }) => {
-	useEffect(() => {
+	//const token = localStorage.getItem('token');
+	//console.log("Token in localStorage:", token);
+	useEffect(() => { 
+		 
 		getCurrentProfile();
 	}, [getCurrentProfile]);
 
@@ -34,7 +40,8 @@ const SelectProfileContainer = ({
 		e.preventDefault();
 		createProfile(formData, history);
 	};
-
+//if(loading) return <LoadingSpinner/>
+//console.log("Profiles from Redux in SelectProfileContainer:", profiles);
 	return (
 		<Fragment>
 			<Header bg={false}>
@@ -45,21 +52,23 @@ const SelectProfileContainer = ({
 			<Profiles>
 				<Profiles.Title>Who's watching?</Profiles.Title>
 				<Profiles.List>
-					<Profiles.User
-						onClick={() => {
-							setProfile({
-								displayName: user.name,
-								photoUrl: user.avatar,
-							});
-						}}
-					>
-						<Profiles.Picture src={user && user.avatar} alt='profile picture' />
-						<Profiles.Name>{user && user.name} </Profiles.Name>
-					</Profiles.User>
-					<Profiles.User>
-						<Profiles.Picture src={user && user.avatar} alt='profile picture' />
-						<Profiles.Name>Add Profile </Profiles.Name>
-					</Profiles.User>
+				{profiles.map((profile) => (
+			
+                        <Profiles.User
+                            key={profile._id}
+														
+                            onClick={() => setProfile({ displayName: profile.user.name, photoUrl: profile.photoUrl })}
+                        >
+                            <Profiles.Picture src={profile.photoUrl || user.avatar} alt='profile picture' />
+                            <Profiles.Name>{profile.profileName}</Profiles.Name>
+                        </Profiles.User>
+                    ))}
+                    <Profiles.User>
+                        <Profiles.Picture src={user && user.avatar} alt='profile picture' />
+                        <Profiles.Name>Add Profile</Profiles.Name>
+                    </Profiles.User>
+
+
 				</Profiles.List>
 			</Profiles>
 			<Form>
@@ -103,7 +112,7 @@ SelectProfileContainer.propTypes = {
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
-	profile: state.profile,
+	profiles: state.profile.profiles,
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, createProfile })(

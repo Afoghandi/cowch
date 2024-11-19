@@ -12,8 +12,10 @@
     "author": "Afolabi Oshun",
     "license": "MIT",
     "dependencies": {
+        "axios": "^1.7.7",
         "bcryptjs": "^2.4.3",
         "config": "^3.3.3",
+        "cors": "^2.8.5",
         "dotenv": "^16.4.5",
         "express": "^4.17.1",
         "express-validator": "^6.9.2",
