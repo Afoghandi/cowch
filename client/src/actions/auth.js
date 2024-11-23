@@ -51,7 +51,7 @@ export const loadUser = () => async(dispatch) => {
  
   if (token) {
     setAuthToken(token); 
-    //console.log("Token from load user in action/auth: " + token);
+   
     
   } else {
     dispatch({ type: AUTH_ERROR });

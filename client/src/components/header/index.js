@@ -42,6 +42,7 @@ Header.Logo = function HeaderLogo({ to, ...restProps }) {
 };
 
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
+	console.log("Header.TextLink received children:", children);
 	return <Link {...restProps}> {children} </Link>;
 };
 
@@ -74,10 +75,11 @@ Header.Search = function HeaderSearch({
 };
 
 Header.Picture = function HeaderPicture({ src, ...restProps }) {
+	console.log("Header.Picture received src:", src); 
 	return (
 		<Picture
 			{...restProps}
-			src={src ? `/images/icons/search.png` : '/images/misc/loading.gif'}
+			src={src && src.trim() !=='' ? src: '/images/misc/loading.gif'}
 		/>
 	);
 };

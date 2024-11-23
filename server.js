@@ -10,6 +10,8 @@ const app = express();
 //connect Database
 
 connectDB();
+//Init Middleware
+app.use(express.json());
 
 app.use(cors({ origin: 'http://localhost:3000' })); 
 
@@ -27,8 +29,7 @@ app.use('/api/tmdb', async (req, res) => {
       res.status(error.response?.status || 500).json({ message: error.message });
   }
 });
-//Init Middleware
-app.use(express.json({ extended: false }));
+
 
 app.get('/', (req, res) => res.send('API Running'));
 

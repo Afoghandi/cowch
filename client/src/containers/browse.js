@@ -14,7 +14,7 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 	//state for banner image
 	const [coverImage, setCoverImage] = useState([]);
 
-	const [profile, setProfile] = useState({});
+	const [profile, setProfile] = useState(null);
 
 	// Get movie APIs
 
@@ -22,7 +22,7 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 		try {
 			async function fetchData() {
 				const request = await axios.get(requests.fetchNetflixOriginals);
-
+	
 				setCoverImage(
 					request.data.results[
 						Math.floor(Math.random() * request.data.results.length - 1)
@@ -34,13 +34,31 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 		} catch (error) {
 			console.error(error);
 		}
-	}, []);
+	}, [profile]);
 
 	//function to truncate banner text
 	function truncate(str, n) {
 		return str?.length > n ? str.substr(0, n - 1) + '...' : str;
 	}
-	return profile.displayName ? (
+
+	if(!profile){
+		return (
+			<SelectProfileContainer
+					user={user}
+					setProfile={(selectedProfile) => {
+							
+							setProfile({
+								displayName: selectedProfile.displayName,
+								photoUrl: selectedProfile.photoUrl,
+
+
+							}); // Update the selected profile
+					}}
+			/>
+	);
+	}
+	
+	return  (
 		<Fragment>
 			<Header
 				img={`https://image.tmdb.org/t/p/original/${coverImage?.backdrop_path}`}
@@ -55,8 +73,9 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 							<Header.Picture />
 							<Header.Dropdown>
 								<Header.Group>
-									<Header.Picture src={user && user.avatar} alt='name' />
-									<Header.TextLink>{user.name}</Header.TextLink>
+									<Header.Picture src={profile.photoUrl} alt='Profile Picture' />
+								<Header.TextLink>{profile.displayName}</Header.TextLink> 
+								{ /**<Header.TextLink>Rafa</Header.TextLink> */ }
 								</Header.Group>
 								<Header.Group>
 									<Header.TextLink onClick={logout}>Log Out</Header.TextLink>
@@ -87,11 +106,7 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 			<BrowseCard title= 'Documentaries' fetchUrl={requests.fetchDocumentaries}/>
 	
 		</Fragment>
-	) : (
-		<Fragment>
-			<SelectProfileContainer user={user} setProfile={setProfile} />
-		</Fragment>
-	);
+	) 
 }
 BrowseContainer.propTypes = {
 	auth: PropTypes.object.isRequired,

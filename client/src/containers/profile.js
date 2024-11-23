@@ -20,8 +20,7 @@ const SelectProfileContainer = ({
 	history,
 	setProfile,
 }) => {
-	//const token = localStorage.getItem('token');
-	//console.log("Token in localStorage:", token);
+
 	useEffect(() => { 
 		 
 		getCurrentProfile();
@@ -33,15 +32,26 @@ const SelectProfileContainer = ({
 
 	const isInvalid = userName === '' || profileName === '';
 
-	const onChange = (e) => {
-		setFormData({ ...formData, [e.target.name]: e.target.value });
+	const handleChange = (e) => {
+		const {name, value}= e.target;
+		setFormData((prevState)=> ({...prevState,[name]: value}));
 	};
-	const onSubmit = (e) => {
+
+	const handleSubmit = (e) => {
 		e.preventDefault();
+		if (!formData.userName || !formData.profileName) {
+				console.error("Form data is incomplete");
+				return;
+		}
+	
 		createProfile(formData, history);
-	};
+
+		// Clear the form fields
+		setFormData({ userName: '', profileName: '' });
+};
+
 //if(loading) return <LoadingSpinner/>
-//console.log("Profiles from Redux in SelectProfileContainer:", profiles);
+
 	return (
 		<Fragment>
 			<Header bg={false}>
@@ -57,7 +67,11 @@ const SelectProfileContainer = ({
                         <Profiles.User
                             key={profile._id}
 														
-                            onClick={() => setProfile({ displayName: profile.user.name, photoUrl: profile.photoUrl })}
+                            onClick={() => 
+															
+															{
+															
+																setProfile({ displayName: profile.profileName, photoUrl: profile.photoUrl })}}
                         >
                             <Profiles.Picture src={profile.photoUrl || user.avatar} alt='profile picture' />
                             <Profiles.Name>{profile.profileName}</Profiles.Name>
@@ -74,20 +88,20 @@ const SelectProfileContainer = ({
 			<Form>
 				<Form.Title>Add a profile </Form.Title>
 
-				<Form.Base onSubmit={(e) => onSubmit(e)}>
+				<Form.Base onSubmit={handleSubmit}>
 					<Form.Input
-						placeholder='user name'
+						placeholder='User Name'
 						name='userName'
-						value={userName}
-						onChange={(e) => onChange(e)}
+						value={formData.userName || ''}
+						onChange={handleChange}
 					/>
 
 					<Form.Input
-						value={profileName}
+					placeholder='Dispaly name'
+					name='profileName'
+						value={formData.profileName}
 						autoComplete='off'
-						name='profileName'
-						placeholder='Dispaly name'
-						onChange={(e) => onChange(e)}
+						onChange={handleChange}
 					/>
 
 					<Form.Submit

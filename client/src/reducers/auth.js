@@ -47,6 +47,7 @@ export default function(state = initialState, action) {
         case LOGOUT:
         case AUTH_ERROR:
             sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
 
             return {
                 ...state,
