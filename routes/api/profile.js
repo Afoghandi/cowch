@@ -119,6 +119,7 @@ router.delete('/', auth, async(req, res) => {
 //@access    Private
 
 router.delete('/:profile_id', auth, async(req, res) => {
+    console.log("Profile ID received in backend:", req.params.profile_id);
     try {
         const profile = await Profile.findOneAndRemove({_id:req.params.profile_id, user: req.user.id});
         if(!profile){

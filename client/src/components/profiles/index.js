@@ -18,7 +18,7 @@ Profiles.User = function ProfilesUser({ children,onDelete, ...restProps }) {
 
 		{
 			e.stopPropagation();
-			console.log("Delete button clicked for profile ID:");
+		
 			onDelete();
 		}
 	} >X</DeleteButton> {children} </Item>;

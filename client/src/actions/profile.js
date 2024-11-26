@@ -66,7 +66,7 @@ export const createProfile = (formData, history, edit = false) => async (dispatc
 
 // Delete a profile
 export const deleteProfileAction = (profileId) => async (dispatch) => {
-    console.log('Deleting profile ID:', profileId);
+   
     try {
         await deleteProfile(profileId);
         dispatch({
