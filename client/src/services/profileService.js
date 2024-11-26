@@ -12,3 +12,7 @@ export const createProfile = (formData) => {
       },
   });
 };
+
+export const deleteProfile =(profileId)=> 
+{  console.log("Sending DELETE request for profile ID:", profileId);
+ return api.delete(`${BACKEND_BASE_URL}/api/profile/${profileId}`);}

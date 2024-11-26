@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile, createProfile } from '../actions/profile';
+import { getCurrentProfile, createProfile, deleteProfileAction } from '../actions/profile';
 import { Header, Form } from '../components';
 import * as ROUTES from '../constants/routes';
 import { Profiles } from '../components';
@@ -19,6 +19,7 @@ const SelectProfileContainer = ({
 	createProfile,
 	history,
 	setProfile,
+	deleteProfileAction
 }) => {
 
 	useEffect(() => { 
@@ -50,6 +51,7 @@ const SelectProfileContainer = ({
 		setFormData({ userName: '', profileName: '' });
 };
 
+
 //if(loading) return <LoadingSpinner/>
 
 	return (
@@ -72,15 +74,14 @@ const SelectProfileContainer = ({
 															{
 															
 																setProfile({ displayName: profile.profileName, photoUrl: profile.photoUrl })}}
+																onDelete={() => deleteProfileAction(profile._id)} 
                         >
                             <Profiles.Picture src={profile.photoUrl || user.avatar} alt='profile picture' />
                             <Profiles.Name>{profile.profileName}</Profiles.Name>
+												
                         </Profiles.User>
                     ))}
-                    <Profiles.User>
-                        <Profiles.Picture src={user && user.avatar} alt='profile picture' />
-                        <Profiles.Name>Add Profile</Profiles.Name>
-                    </Profiles.User>
+                  
 
 
 				</Profiles.List>
@@ -129,6 +130,6 @@ const mapStateToProps = (state) => ({
 	profiles: state.profile.profiles,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, createProfile })(
+export default connect(mapStateToProps, { getCurrentProfile, createProfile, deleteProfileAction })(
 	withRouter(SelectProfileContainer)
 );

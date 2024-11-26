@@ -5,6 +5,7 @@ import {
     PROFILE_ERROR,
     PROFILE_SIGNUP_FAIL,
     CREATE_PROFILE,
+    DELETE_PROFILE,
 } from '../constants/types';
 
 const initialState = {
@@ -30,6 +31,12 @@ export default function(state = initialState, action) {
                 profiles:[...state.profiles, payload],
                 loading: false,
             };
+            case DELETE_PROFILE:
+                return{
+                    ...state,
+                    profiles:state.profiles.filter((profile)=> profile._id !== payload),
+                    loading:false,
+                }
         case PROFILE_ERROR:
         case PROFILE_SIGNUP_FAIL:
             return {

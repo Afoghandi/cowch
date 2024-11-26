@@ -1,11 +1,12 @@
 //import axios from 'axios';
 
 import { setAlert } from './alert';
-import { fetchCurrentProfile, createProfile as createProfileService} from '../services/profileService';
+import { fetchCurrentProfile, createProfile as createProfileService, deleteProfile } from '../services/profileService';
 
 import {
     GET_PROFILE,
     PROFILE_ERROR,
+    DELETE_PROFILE,
     CREATE_PROFILE,
     PROFILE_SIGNUP_FAIL,
 } from '../constants/types';
@@ -59,5 +60,25 @@ export const createProfile = (formData, history, edit = false) => async (dispatc
             type: PROFILE_SIGNUP_FAIL,
             payload: { msg: err.response?.statusText, status: err.response?.status },
         });
+    }
+};
+
+
+// Delete a profile
+export const deleteProfileAction = (profileId) => async (dispatch) => {
+    console.log('Deleting profile ID:', profileId);
+    try {
+        await deleteProfile(profileId);
+        dispatch({
+            type: DELETE_PROFILE,
+            payload: profileId,
+        });
+        dispatch(setAlert('Profile deleted successfully', 'success'));
+    } catch (err) {
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: { msg: err.response?.statusText, status: err.response?.status },
+        });
+        dispatch(setAlert('Failed to delete profile', 'danger'));
     }
 };

@@ -42,7 +42,7 @@ Header.Logo = function HeaderLogo({ to, ...restProps }) {
 };
 
 Header.TextLink = function HeaderTextLink({ children, ...restProps }) {
-	console.log("Header.TextLink received children:", children);
+	
 	return <Link {...restProps}> {children} </Link>;
 };
 
@@ -75,7 +75,7 @@ Header.Search = function HeaderSearch({
 };
 
 Header.Picture = function HeaderPicture({ src, ...restProps }) {
-	console.log("Header.Picture received src:", src); 
+	
 	return (
 		<Picture
 			{...restProps}
