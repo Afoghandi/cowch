@@ -58,7 +58,7 @@ export const loadUser = () => async(dispatch) => {
     return;
   }
     try{
-        const res = await axios.get('/api/auth');
+        const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/auth`);
         dispatch({type:USER_LOADED, payload:res.data})
     }catch(err){
         dispatch({type:AUTH_ERROR})
@@ -76,7 +76,7 @@ export const signup = ({ name, email, password }) => async(dispatch) => {
     };
     const body = JSON.stringify({ name, email, password });
     try {
-        const res = await axios.post('/api/users', body, config);
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/users`, body, config);
         localStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNUP_SUCCESS,
@@ -105,7 +105,7 @@ export const signin = (email, password) => async(dispatch) => {
     };
     const body = JSON.stringify({ email, password });
     try {
-        const res = await axios.post('/api/auth', body, config);
+        const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, body, config);
         localStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNIN_SUCCESS,

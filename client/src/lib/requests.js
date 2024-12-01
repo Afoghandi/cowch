@@ -1,5 +1,7 @@
 //const API_KEY = process.env.REACT_APP_API_KEY
 
+
+
 const createRequest = (path)=>`http://localhost:5100/api/tmdb${path}?&language=en-US`;
 
 
