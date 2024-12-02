@@ -1,8 +1,9 @@
 //const API_KEY = process.env.REACT_APP_API_KEY
 
+// Dynamically set the backend base URL based on the environment
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5100';
 
-
-const createRequest = (path)=>`http://localhost:5100/api/tmdb${path}?&language=en-US`;
+const createRequest = (path)=>`${BASE_URL}/api/tmdb${path}?&language=en-US`;
 
 
 const requests = {
