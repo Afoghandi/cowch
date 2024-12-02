@@ -6,7 +6,7 @@ export const Background = styled.div `
 	display: flex;
 	flex-direction: column;
 	background: url(${(props) =>
-			props.img ? props.img : '../images/misc/home-bg.jpg'})
+			props.img ? props.img : `${process.env.PUBLIC_URL}/images/misc/home-bg.jpg`})
 		top left / cover no-repeat;
 	@media (max-width: 1100px) {
 		${({ dontShowOnSmallViewPort }) =>
