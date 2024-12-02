@@ -37,7 +37,7 @@ if(loading) return <LoadingSpinner/>
 	return (
 		
 			<Provider store={store}>
-				<Router>
+				<Router basename="/cowch" >
 				<Fragment>
 					<AlertMessage/>
 					<Route exact path='/' component={Home} />{' '}
