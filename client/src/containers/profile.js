@@ -98,7 +98,7 @@ const SelectProfileContainer = ({
 					/>
 
 					<Form.Input
-					placeholder='Dispaly name'
+					placeholder='Display Name'
 					name='profileName'
 						value={formData.profileName}
 						autoComplete='off'
