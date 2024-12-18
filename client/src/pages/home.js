@@ -2,6 +2,7 @@ import React from 'react';
 import { HeaderContainer } from '../containers/header';
 import { Feature, OptForm } from '../components';
 
+import * as ROUTES from '../constants/routes'
 import { JumbotronContainer } from '../containers/jumbotron';
 import { FaqsContainer } from '../containers/faqs';
 import { FooterContainer } from '../containers/footer';
@@ -20,11 +21,11 @@ export default function Home() {
 					</Feature.SubTitle>{' '}
 					<OptForm>
 						<OptForm.Input placeholder='Email address' />
-						<OptForm.Button> Try it now </OptForm.Button> <OptForm.Break />
+					
+						<OptForm.Button to ={ROUTES.SIGN_UP} > Try it now </OptForm.Button> <OptForm.Break />
 						<OptForm.Text>
 							{' '}
-							Ready to watch ? Enter your email to create or restart your
-							membership{' '}
+							Ready to watch ? Sign Up  to start your lifetime membership{' '}
 						</OptForm.Text>{' '}
 					</OptForm>{' '}
 				</Feature>{' '}
