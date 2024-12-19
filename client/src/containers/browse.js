@@ -88,8 +88,11 @@ function BrowseContainer({ auth: { user, loading }, logout }) {
 					<Header.FeatureCallOut>
 						{coverImage?.title || coverImage?.name || coverImage?.original_name}
 					</Header.FeatureCallOut>
-					<Header.Text>{truncate(coverImage?.overview, 150)}</Header.Text>
-					<Header.PlayButton> Play</Header.PlayButton>
+					<Header.Text>{truncate(coverImage?.overview, 150)}<br/> 
+					
+					<h1>Scroll and Click on the cards below to watch preview</h1>
+					</Header.Text>
+					
 				</Header.Feature>
 			</Header>
 			<BrowseCard
