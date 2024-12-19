@@ -10,14 +10,16 @@ import { FooterContainer } from './footer';
 import logo from '../logo.png';
 import { withRouter } from 'react-router-dom';
 import LoadingSpinner from '../components/loading';
+import Error from '../components/error';
 
 const SelectProfileContainer = ({
 	getCurrentProfile,
 	user,
 	profiles,
-	//profile:{profile,  loading},
+	loading,
 	createProfile,
 	history,
+	error,
 	setProfile,
 	deleteProfileAction
 }) => {
@@ -37,6 +39,9 @@ const SelectProfileContainer = ({
 		const {name, value}= e.target;
 		setFormData((prevState)=> ({...prevState,[name]: value}));
 	};
+	const handleRetry = ()=>{
+		getCurrentProfile();
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -52,7 +57,8 @@ const SelectProfileContainer = ({
 };
 
 
-//if(loading) return <LoadingSpinner/>
+if(loading) return <LoadingSpinner/>
+if(error) return <Error message={error} onRetry={handleRetry}/>
 
 	return (
 		<Fragment>
@@ -121,6 +127,8 @@ const SelectProfileContainer = ({
 SelectProfileContainer.propTypes = {
 	getCurrentProfile: PropTypes.func.isRequired,
 	auth: PropTypes.object.isRequired,
+	loading:PropTypes.bool.isRequired,
+	error:PropTypes.string,
 	profile: PropTypes.object.isRequired,
 	createProfile: PropTypes.func.isRequired,
 };
@@ -128,6 +136,8 @@ SelectProfileContainer.propTypes = {
 const mapStateToProps = (state) => ({
 	auth: state.auth,
 	profiles: state.profile.profiles,
+	loading: state.profile.loading,
+	error: state.profile.error,
 });
 
 export default connect(mapStateToProps, { getCurrentProfile, createProfile, deleteProfileAction })(

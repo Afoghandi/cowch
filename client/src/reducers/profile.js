@@ -6,12 +6,13 @@ import {
     PROFILE_SIGNUP_FAIL,
     CREATE_PROFILE,
     DELETE_PROFILE,
+    PROFILE_LOADING
 } from '../constants/types';
 
 const initialState = {
     profile: null,
     profiles: [],
-    loading: true,
+    loading: false,
     error: null,
 };
 
@@ -19,6 +20,10 @@ export default function(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
+        case PROFILE_LOADING:
+            return{
+                ...state, loading:true, error:null
+            };
         case GET_PROFILE:
             return {
                 ...state,

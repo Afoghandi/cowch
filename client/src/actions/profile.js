@@ -9,11 +9,14 @@ import {
     DELETE_PROFILE,
     CREATE_PROFILE,
     PROFILE_SIGNUP_FAIL,
+    PROFILE_LOADING
 } from '../constants/types';
 
 //Get currrent users profile
 
 export const getCurrentProfile = () => async(dispatch) => {
+
+    dispatch({type:PROFILE_LOADING})
    
     try {
         const res = await fetchCurrentProfile();
