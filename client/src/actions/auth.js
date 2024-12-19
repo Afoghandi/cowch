@@ -105,7 +105,10 @@ export const signin = (email, password) => async(dispatch) => {
     };
     const body = JSON.stringify({ email, password });
     try {
+       
+        
         const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth`, body, config);
+       
         localStorage.setItem('token', res.data.token);
         dispatch({
             type: SIGNIN_SUCCESS,
